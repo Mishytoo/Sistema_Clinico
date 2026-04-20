@@ -1,1 +1,2 @@
-Sistema creado con java y usa spring, jpa, hibernate, etc.
+# Sistema_Clinico
+Un sistema clinico realizado en java con spring boot, jpa, hibernate, thymeleaf
