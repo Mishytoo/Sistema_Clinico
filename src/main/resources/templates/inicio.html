@@ -1,0 +1,213 @@
+<!--
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container py-4">
+
+    <div class="card bg-light">
+        <div class="card-header">
+            <h4 th:text="${titulo}"></h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-info">
+                Bienvenido, <strong th:text="${username}"></strong>
+            </div>
+
+            <div class="row">
+
+                &lt;!&ndash; MENÚ ADMINISTRADOR &ndash;&gt;
+                <div class="col-md-4 mb-3" th:if="${esAdministrador}">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            Administración
+                        </div>
+                        <div class="card-body">
+                            <a th:href="@{/usuario/listarUsu}" class="btn btn-primary btn-block mb-2">
+                                Gestión de usuarios
+                            </a>
+
+                            <a th:href="@{/persona/listarPer}" class="btn btn-primary btn-block mb-2">
+                                Gestión de personas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                &lt;!&ndash; MENÚ MÉDICO &ndash;&gt;
+                <div class="col-md-4 mb-3" th:if="${esMedico}">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            Médico
+                        </div>
+                        <div class="card-body">
+                            <a th:href="@{/persona/listarPer}" class="btn btn-success btn-block mb-2">
+                                Ver personas
+                            </a>
+
+                            <a href="#" class="btn btn-success btn-block mb-2">
+                                Consultas médicas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                &lt;!&ndash; MENÚ ENFERMERÍA &ndash;&gt;
+                <div class="col-md-4 mb-3" th:if="${esEnfermeria}">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            Enfermería
+                        </div>
+                        <div class="card-body">
+                            <a th:href="@{/persona/listarPer}" class="btn btn-info btn-block mb-2">
+                                Registro de personas
+                            </a>
+
+                            <a href="#" class="btn btn-info btn-block mb-2">
+                                Triaje / signos vitales
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <form th:action="@{/logout}" method="post" class="mt-4">
+                <button type="submit" class="btn btn-outline-danger">
+                    Cerrar sesión
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: appTopbar"></header>
+<!--<div class="container py-4">
+
+    <div class="card bg-light">
+        <div class="card-header">
+            <h4 th:text="${titulo}"></h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-info">
+                Bienvenido,
+                <strong th:text="${username}"></strong>
+                <span class="badge bg-secondary ms-2" th:text="${tipoUsuario}"></span>
+            </div>
+
+            <div th:if="${#lists.isEmpty(menuGrupos)}" class="alert alert-warning">
+                Este usuario no tiene menús asignados.
+            </div>
+
+            <div class="row" th:if="${not #lists.isEmpty(menuGrupos)}">
+
+                <div class="col-md-4 mb-3" th:each="grupo : ${menuGrupos}">
+                    <div class="card h-100 shadow-sm">
+
+                        <div class="card-header bg-dark text-white">
+                            <i th:if="${grupo.icono != null}"
+                               th:class="${grupo.icono}"></i>
+                            <span th:text="${grupo.nombre}"></span>
+                        </div>
+
+                        <div class="card-body">
+
+                            <a th:each="item : ${grupo.items}"
+                               th:href="@{|/${item.categoria}/${item.valor}|}"
+                               class="btn btn-outline-primary d-block text-start mb-2">
+
+                                <i th:if="${item.icono != null}"
+                                   th:class="${item.icono}"></i>
+
+                                <span th:text="${item.nombre}"></span>
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <form th:action="@{/logout}" method="post" class="mt-4">
+                <button type="submit" class="btn btn-outline-danger">
+                    Cerrar sesión
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+</div>-->
+
+<div class="app-wrapper">
+
+    <aside th:replace="layout/layout :: sidebar"></aside>
+
+    <main class="app-content">
+
+        <div class="card bg-light content-panel">
+
+            <div class="card-header">
+                <h4 class="mb-0" th:text="${titulo}">Menú principal</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="alert alert-info">
+                    Bienvenido,
+                    <strong th:text="${username}"></strong>
+                    <span class="badge badge-secondary ml-2" th:text="${tipoUsuario}"></span>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-dark text-white">
+                                Panel principal
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    Seleccione una opción del menú lateral para comenzar.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<div th:replace="layout/layout :: scripts"></div>
+<!--<footer th:replace="layout/layout :: footer"></footer>-->
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+<header th:replace="layout/layout :: appTopbar"></header>
+
+<!--<div class="container py-4">
+    <div class="card bg-light">
+        <div class="card-header" th:text="${titulo}"></div>-->
+<div class="app-wrapper">
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main class="app-content">
+        <div class="card bg-light content-panel">
+            <div class="card-header">
+                <h4 class="mb-0" th:text="${titulo}"></h4>
+            </div>
+
+            <!-- //////////////////////////////////////////////////// ////////////////////////////////////////////////////-->
+            <!-- AQUI VA EL CONTENIDO DE LA PAGINA: -->
+            <div class="card-body">
+                <h2>EN CONSTRUCCION.....</h2>
+
+            </div>
+            <!-- FIN DE CONTENIDO -->
+            <!-- //////////////////////////////////////////////////// ////////////////////////////////////////////////////-->
+
+        </div>
+    </main>
+</div>
+<footer th:replace="layout/layout :: scripts"></footer>
+</body>
+</html>

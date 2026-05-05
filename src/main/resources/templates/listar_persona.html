@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: appTopbar"></header>
+
+<div class="app-wrapper">
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main class="app-content">
+        <div class="card bg-light content-panel">
+            <div class="card-header">
+                <h4 class="mb-0" th:text="${titulo}"></h4>
+            </div>
+
+
+            <div class="card-body">
+                <h4 class="card-title">
+                    <a th:href="@{/persona/formPer}" class="btn btn-secondary btn-xs">registrar</a>
+                </h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>tipDoc</th>
+                        <th>nroDoc</th>
+                        <th>nombres</th>
+                        <th>apellidos</th>
+                        <th>sexo</th>
+                        <th>celular</th>
+                        <th>fecNac</th>
+                        <th>direccion</th>
+                        <th sec:authorize="hasRole('ROLE_ADMINISTRADOR')">accion</th>
+                        <th sec:authorize="hasRole('ROLE_ADMINISTRADOR')">accion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${personas}">
+                        <td th:text="${p.id}"></td>
+                        <td th:text="${p.tipoDocumento}"></td>
+                        <td th:text="${p.nroDocumento}"></td>
+                        <td th:text="${p.nombreCompleto}"></td>
+                        <td th:text="${p.apellidoCompleto}"></td>
+                        <td th:text="${p.sexo}"></td>
+                        <td th:text="${p.celular}"></td>
+                        <td th:text="${p.fechaNacimiento}"></td>
+                        <td th:text="${p.direccion}"></td>
+                        <td sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+                            <a th:href="@{/persona/updPer/}+${p.id}" th:text="'editar'" class="btn btn-primary btn-xs">Editar</a>
+                        </td>
+                        <td sec:authorize="hasRole('ROLE_ADMINISTRADOR')">
+                            <a th:href="@{/persona/delPer/}+${p.id}" th:text="'eliminar'" class="btn btn-danger btn-xs"
+                               onclick="return confirm('¿Estas seguro que quieres eliminar?');">Eliminar</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav th:replace="paginator-nav :: paginator"></nav>
+            </div>
+
+
+        </div>
+    </main>
+</div>
+
+<footer th:replace="layout/layout :: scripts"></footer>
+</body>
+
+</html>
