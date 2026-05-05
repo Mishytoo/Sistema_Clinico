@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <script type="text/javascript" th:fragment="javascript">
+        $(document).ready(function() {
+
+            $("#buscar_persona").autocomplete({
+                source : function(request, response) {
+                    //alert("entra");
+                    $.ajax({
+                        type : "GET",
+                        url : "/usuario/cargar-personas/" + request.term,
+                        dataType : "json",
+                        encode : true,
+                        data : {
+                            term : request.term
+                        },
+                        success : function(data) {
+                            response($.map(data, function(item) {
+
+                                return {
+                                    value : item.id,
+                                    label : item.nroDocumento + " - " + item.apellidoCompleto + " " + item.nombreCompleto,
+                                };
+                            }));
+                        },
+                    });
+                },open: function() {
+                    var menu = $(this).autocomplete("widget");
+
+                    // Fuerza el ancho para que sea igual al del input
+                    menu.outerWidth($(this).outerWidth());
+
+                    // Quita las viñetas y aplicamos clases de Bootstrap
+                    menu.addClass("list-group").css({
+                        "padding": "0",
+                        "list-style": "none"
+                    });
+
+                    menu.find("li").addClass("list-group-item list-group-item-action").css({
+                        "border": "none",
+                        "border-bottom": "1px solid #ddd"
+                    });
+                },select : function(event, ui) {
+                    $("#buscar_persona").val(ui.item.label);
+                    $("#persona_id").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
