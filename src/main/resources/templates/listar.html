@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de personas</title>
+</head>
+<body>
+    <h1>Listado de Personas</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tipo Documento</th>
+            <th>Nro Documento</th>
+            <th>Nombre Completo</th>
+            <th>Apellido Completo</th>
+            <th>Sexo</th>
+            <th>Celular</th>
+            <th>Fecha Nacimiento</th>
+            <th>Direccion</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="persona : ${listaPersonas}">
+            <td th:text="${persona.id}"></td>
+            <td th:text="${persona.tipoDocumento}"></td>
+            <td th:text="${persona.nroDocumento}"></td>
+            <td th:text="${persona.nombreCompleto}"></td>
+            <td th:text="${persona.apellidoCompleto}"></td>
+            <td th:text="${persona.sexo}"></td>
+            <td th:text="${persona.celular}"></td>
+            <td th:text="${persona.fechaNacimiento}"></td>
+            <td th:text="${persona.direccion}"></td>
+            <td>
+                <a th:href="@{/personas/editar/{id}(id=${persona.id})}">Editar</a>
+                <a th:href="@{/personas/eliminar/{id}(id=${persona.id})}">Eliminar</a>
+            </td>
+
+        </tr>
+    </table>
+
+    <a href="/personas/formulario-persona">Nueva Persona</a>
+
+</body>
+</html>

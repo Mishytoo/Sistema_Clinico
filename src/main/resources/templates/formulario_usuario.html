@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+    <!--<meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">-->
+</head>
+<style>
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 0 0 5px 5px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 2000 !important;
+    }
+
+    .ui-menu-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+
+    .ui-menu-item:last-child {
+        border-bottom: none;
+    }
+
+    /* Color al pasar el mouse (hover) */
+    .ui-state-active, .ui-state-focus {
+        background-color: #007bff !important;
+        color: white !important;
+        border: none !important;
+        margin: 0 !important;
+    }
+
+    /* Ocultar texto de ayuda visual de jQuery UI (opcional) */
+    .ui-helper-hidden-accessible {
+        display: none;
+    }
+</style>
+<body>
+
+<header th:replace="layout/layout :: appTopbar"></header>
+
+<!--<div class="container py-4">
+    <div class="card bg-light">
+        <div class="card-header" th:text="${titulo}"></div>-->
+<div class="app-wrapper">
+    <aside th:replace="layout/layout :: sidebar"></aside>
+    <main class="app-content">
+        <div class="card bg-light content-panel">
+            <div class="card-header">
+                <h4 class="mb-0" th:text="${titulo}"></h4>
+            </div>
+
+
+            <div class="card-body">
+                <form th:action="@{/usuario/regUsu}" th:object="${usuario}" method="post">
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Nombre de Usuario</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{nomUsuario}" class="form-control"/>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('nomUsuario')}"
+                                   th:errors="*{nomUsuario}"></small>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Clave de Usuario</label>
+                        <div class="col-sm-6">
+                            <input type="password" th:field="*{claveUsuario}" class="form-control"/>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('claveUsuario')}"
+                                   th:errors="*{claveUsuario}"></small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Rol de Usuario</label>
+                        <div class="col-sm-6">
+                            <!--                        <input type="number" th:field="*{tipoUsuario}" class="form-control"/>-->
+                            <select th:field="*{tipoUsuario}" class="form-control">
+                                <option th:each="tipo : ${listaTipos}"
+                                        th:value="${tipo.id}"
+                                        th:text="${tipo.tipoUsuario}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--                        <input type="number" th:field="*{persona}" class="form-control" />-->
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="buscar_persona" th:text="'Buscar Persona'"></label>
+                        <div class="col-sm-6">
+                            <input type="text" name="buscar_persona" id="buscar_persona" class="form-control"/>
+                            <!--                        <input type="hidden" th:field="*{persona.id}" id="persona_id" />-->
+                            <input type="hidden" name="persona" id="persona_id"
+                                   th:value="${usuario.persona != null ? usuario.persona.id : ''}"/>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('persona')}"
+                                   th:errors="*{persona}"></small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <input type="submit" value="Procesar" class="btn btn-secondary"/>
+                            <a class="btn btn-secondary"
+                               th:href="@{/usuario/listarUsu}"
+                               th:text="'volver'"></a>
+                        </div>
+
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+
+<footer th:replace="layout/layout :: scripts"></footer>
+<script th:replace="usuario/js/autocomplete-personas :: javascript"></script>
+</body>
+</html>
